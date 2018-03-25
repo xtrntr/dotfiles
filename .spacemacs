@@ -312,16 +312,11 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  (read-only-mode -1) 
-
-  (global-set-key (kbd "C-+") 'text-scale-increase)
-  (global-set-key (kbd "C--") 'text-scale-decrease)
+  (read-only-mode -1)
 
   ;; up and down scrolling
-  (define-key input-decode-map "\e\eOA" [(meta up)])
-  (define-key input-decode-map "\e\eOB" [(meta down)])
-  (global-set-key [(meta up)] '(lambda () (interactive) (previous-line 3)))
-  (global-set-key [(meta down)] '(lambda () (interactive) (next-line 3)))
+  (global-set-key (kbd "ESC <up>") '(lambda () (interactive) (previous-line 3)))
+  (global-set-key (kbd "ESC <down>") '(lambda () (interactive) (next-line 3)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
