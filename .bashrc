@@ -3,6 +3,7 @@
 # for examples
 
 export LC_ALL="en_US.UTF-8"
+LC_CTYPE='en_US.UTF-8'
 
 # If not running interactively, don't do anything
 case $- in
@@ -13,13 +14,13 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+# unlimited history
+HISTSIZE=
+HISTFILESIZE=
+# To quote the If set, the value is executed as a command prior to issuing each primary  So every time my command has finished, it appends the unwritten history item to ~/.bash_history before displaying the prompt (only $PS1) again.
+export PROMPT_COMMAND='history -a; history -r'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -89,27 +90,20 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+alias fixssh='eval SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock; export SSH_AUTH_SOCK;'
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-
-LC_CTYPE='en_US.UTF-8'
 
 if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
     ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
@@ -130,3 +124,5 @@ fi
 export NVM_DIR="/home/kangren/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+EDITOR="emacsclient -t"

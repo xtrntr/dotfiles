@@ -46,4 +46,4 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 alias .......="cd ../../../../../.."
 
-alias fixssh='eval $(tmux showenv -s SSH_AUTH_SOCK)'
+. ~/.bashrc
